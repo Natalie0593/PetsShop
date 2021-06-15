@@ -44,6 +44,12 @@ D:\MyStore\Pesiko\Pesiko.UnitTests\bin\Debug\System.Web.WebPages.xml
 D:\MyStore\Pesiko\Pesiko.UnitTests\bin\Debug\System.Web.WebPages.Deployment.xml
 D:\MyStore\Pesiko\Pesiko.UnitTests\bin\Debug\System.Web.WebPages.Razor.xml
 D:\MyStore\Pesiko\Pesiko.UnitTests\bin\Debug\EntityFramework.xml
+D:\MyStore\Pesiko\Pesiko.UnitTests\bin\Debug\ru\System.Web.Helpers.resources.dll
+D:\MyStore\Pesiko\Pesiko.UnitTests\bin\Debug\ru\System.Web.Mvc.resources.dll
+D:\MyStore\Pesiko\Pesiko.UnitTests\bin\Debug\ru\System.Web.Razor.resources.dll
+D:\MyStore\Pesiko\Pesiko.UnitTests\bin\Debug\ru\System.Web.WebPages.resources.dll
+D:\MyStore\Pesiko\Pesiko.UnitTests\bin\Debug\ru\System.Web.WebPages.Deployment.resources.dll
+D:\MyStore\Pesiko\Pesiko.UnitTests\bin\Debug\ru\System.Web.WebPages.Razor.resources.dll
 D:\MyStore\Pesiko\Pesiko.UnitTests\obj\Debug\Pesiko.UnitTests.csproj.AssemblyReference.cache
 D:\MyStore\Pesiko\Pesiko.UnitTests\obj\Debug\Pesiko.UnitTests.csproj.CoreCompileInputs.cache
 D:\MyStore\Pesiko\Pesiko.UnitTests\obj\Debug\Pesiko.UnitTests.csproj.CopyComplete

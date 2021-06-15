@@ -74,7 +74,7 @@
   <ItemGroup>
     <Compile Include="Abstract\IPesikoRepository.cs" />
     <Compile Include="Concrete\EFDbContext.cs" />
-    <Compile Include="Concrete\EFGameRepository.cs" />
+    <Compile Include="Concrete\EFPesikoRepository.cs" />
     <Compile Include="Entities\Pesik.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
