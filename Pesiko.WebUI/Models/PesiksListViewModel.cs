@@ -10,5 +10,6 @@ namespace Pesiko.WebUI.Models
     {
         public IEnumerable<Pesik> Pesiks { get; set; }
         public PagingInfo PagingInfo { get; set; }
+        public string CurrentCategory { get; set; }
     }
 }

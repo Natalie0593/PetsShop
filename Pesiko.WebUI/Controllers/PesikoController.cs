@@ -18,20 +18,24 @@ namespace Pesiko.WebUI.Controllers
             repository = repo;
         }
 
-        public ViewResult List(int page = 1)
+        public ViewResult List(string category, int page = 1)
         {
             PesiksListViewModel model = new PesiksListViewModel
             {
                 Pesiks = repository.Pesiks
-                    .OrderBy(game => game.PesikId)
+                    .Where(p => category == null || p.Category == category)
+                    .OrderBy(pesik => pesik.PesikId)
                     .Skip((page - 1) * pageSize)
                     .Take(pageSize),
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = page,
                     ItemsPerPage = pageSize,
-                    TotalItems = repository.Pesiks.Count()
-                }
+                    TotalItems = category == null ?
+                    repository.Pesiks.Count() :
+                    repository.Pesiks.Where(pesik => pesik.Category == category).Count()
+                },
+                CurrentCategory = category
             };
             return View(model);
         }

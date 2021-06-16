@@ -32,7 +32,7 @@ namespace Pesiko.UnitTests
             controller.pageSize = 3;
 
             // Действие (act)
-            PesiksListViewModel result = (PesiksListViewModel)controller.List(2).Model;
+            PesiksListViewModel result = (PesiksListViewModel)controller.List(null,2).Model;
 
             // Утверждение (assert)
             List<Pesik> games = result.Pesiks.ToList();
@@ -96,7 +96,7 @@ namespace Pesiko.UnitTests
 
             // Act
             PesiksListViewModel result
-                = (PesiksListViewModel)controller.List(2).Model;
+                = (PesiksListViewModel)controller.List(null, 2).Model;
 
             // Assert
             PagingInfo pageInfo = result.PagingInfo;
@@ -104,6 +104,61 @@ namespace Pesiko.UnitTests
             Assert.AreEqual(pageInfo.ItemsPerPage, 3);
             Assert.AreEqual(pageInfo.TotalItems, 5);
             Assert.AreEqual(pageInfo.TotalPages, 2);
+        }
+
+        [TestMethod]
+        public void Can_Filter_Pesiks()
+        {
+            // Организация (arrange)
+            Mock<IPesikoRepository> mock = new Mock<IPesikoRepository>();
+            mock.Setup(m => m.Pesiks).Returns(new List<Pesik>
+            {
+                new Pesik { PesikId = 1, Name = "Игра1", Category="Cat1"},
+                new Pesik { PesikId = 2, Name = "Игра2", Category="Cat2"},
+                new Pesik { PesikId = 3, Name = "Игра3", Category="Cat1"},
+                new Pesik { PesikId = 4, Name = "Игра4", Category="Cat2"},
+                new Pesik { PesikId = 5, Name = "Игра5", Category="Cat3"}
+            });
+            PesikoController controller = new PesikoController(mock.Object);
+            controller.pageSize = 3;
+
+            // Action
+            List<Pesik> result = ((PesiksListViewModel)controller.List("Cat2", 1).Model)
+                .Pesiks.ToList();
+
+            // Assert
+            Assert.AreEqual(result.Count(), 2);
+            Assert.IsTrue(result[0].Name == "Игра2" && result[0].Category == "Cat2");
+            Assert.IsTrue(result[1].Name == "Игра4" && result[1].Category == "Cat2");
+        }
+
+        [TestMethod]
+        public void Generate_Category_Specific_Pesik_Count()
+        {
+            /// Организация (arrange)
+            Mock<IPesikoRepository> mock = new Mock<IPesikoRepository>();
+            mock.Setup(m => m.Pesiks).Returns(new List<Pesik>
+            {
+                new Pesik { PesikId = 1, Name = "Игра1", Category="Cat1"},
+                new Pesik { PesikId = 2, Name = "Игра2", Category="Cat2"},
+                new Pesik { PesikId = 3, Name = "Игра3", Category="Cat1"},
+                new Pesik { PesikId = 4, Name = "Игра4", Category="Cat2"},
+                new Pesik { PesikId = 5, Name = "Игра5", Category="Cat3"}
+            });
+            PesikoController controller = new PesikoController(mock.Object);
+            controller.pageSize = 3;
+
+            // Действие - тестирование счетчиков товаров для различных категорий
+            int res1 = ((PesiksListViewModel)controller.List("Cat1").Model).PagingInfo.TotalItems;
+            int res2 = ((PesiksListViewModel)controller.List("Cat2").Model).PagingInfo.TotalItems;
+            int res3 = ((PesiksListViewModel)controller.List("Cat3").Model).PagingInfo.TotalItems;
+            int resAll = ((PesiksListViewModel)controller.List(null).Model).PagingInfo.TotalItems;
+
+            // Утверждение
+            Assert.AreEqual(res1, 2);
+            Assert.AreEqual(res2, 2);
+            Assert.AreEqual(res3, 1);
+            Assert.AreEqual(resAll, 5);
         }
     }
 }
