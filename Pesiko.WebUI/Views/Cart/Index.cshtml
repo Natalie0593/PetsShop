@@ -4,8 +4,14 @@
     ViewBag.Title = "Pesiko: ваша корзина";
 }
 
+<style>
+    #cartTable td {
+        vertical-align: middle;
+    }
+</style>
+
 <h2>Ваша корзина</h2>
-<table class="table">
+<table id="cartTable" class="table">
     <thead>
         <tr>
             <th>Кол-во</th>
@@ -17,14 +23,22 @@
     <tbody>
         @foreach (var line in Model.Cart.Lines)
         {
-            <tr>
-                <td class="text-center">@line.Quantity</td>
-                <td class="text-left">@line.Pesik.Name</td>
-                <td class="text-right">@line.Pesik.Price.ToString("# руб")</td>
-                <td class="text-right">
-                    @((line.Quantity * line.Pesik.Price).ToString("# руб"))
-                </td>
-            </tr>
+        <tr>
+            <td class="text-center">@line.Quantity</td>
+            <td class="text-left">@line.Pesik.Name</td>
+            <td class="text-right">@line.Pesik.Price.ToString("# руб")</td>
+            <td class="text-right">
+                @((line.Quantity * line.Pesik.Price).ToString("# руб"))
+            </td>
+            <td>
+                @using (Html.BeginForm("RemoveFromCart", "Cart"))
+                {
+                    @Html.Hidden("GameId", line.Pesik.PesikId)
+                    @Html.HiddenFor(x => x.ReturnUrl)
+                    <input class="btn btn-sm btn-warning" type="submit" value="Удалить" />
+                }
+            </td>
+        </tr>
         }
     </tbody>
     <tfoot>
@@ -39,4 +53,5 @@
 
 <div class="text-center">
     <a class="btn btn-primary" href="@Model.ReturnUrl">Продолжить покупки</a>
+    @Html.ActionLink("Оформить заказ", "Checkout", null, new { @class = "btn btn-primary" })
 </div>

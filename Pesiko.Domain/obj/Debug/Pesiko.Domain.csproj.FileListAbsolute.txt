@@ -22,3 +22,7 @@ D:\MyStore\Pesiko\Pesiko.Domain\obj\Debug\Pesiko.Domain.csproj.CoreCompileInputs
 D:\MyStore\Pesiko\Pesiko.Domain\obj\Debug\Pesiko.Domain.csproj.CopyComplete
 D:\MyStore\Pesiko\Pesiko.Domain\obj\Debug\Pesiko.Domain.dll
 D:\MyStore\Pesiko\Pesiko.Domain\obj\Debug\Pesiko.Domain.pdb
+D:\MyStore\Pesiko\Pesiko.Domain\bin\Debug\xunit.abstractions.dll
+D:\MyStore\Pesiko\Pesiko.Domain\bin\Debug\xunit.core.dll
+D:\MyStore\Pesiko\Pesiko.Domain\bin\Debug\xunit.abstractions.xml
+D:\MyStore\Pesiko\Pesiko.Domain\bin\Debug\xunit.core.xml
