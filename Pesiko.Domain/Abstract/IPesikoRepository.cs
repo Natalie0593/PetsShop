@@ -10,5 +10,6 @@ namespace Pesiko.Domain.Abstract
     public interface IPesikoRepository
     {
         IEnumerable<Pesik> Pesiks { get; }
+        void SavePesik(Pesik pesik);
     }
 }
