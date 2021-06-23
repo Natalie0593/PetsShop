@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Pesiko.WebUI.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         IPesikoRepository repository;
@@ -31,12 +32,18 @@ namespace Pesiko.WebUI.Controllers
 
         // Перегруженная версия Edit() для сохранения изменений
         [HttpPost]
-        public ActionResult Edit(Pesik pesik)
+        public ActionResult Edit(Pesik pesik, HttpPostedFileBase image = null)
         {
             if (ModelState.IsValid)
             {
+                if (image != null)
+                {
+                    pesik.ImageMimeType = image.ContentType;
+                    pesik.ImageData = new byte[image.ContentLength];
+                    image.InputStream.Read(pesik.ImageData, 0, image.ContentLength);
+                }
                 repository.SavePesik(pesik);
-                TempData["message"] = string.Format("Изменения в корме \"{0}\" были сохранены", pesik.Name);
+                TempData["message"] = string.Format("Изменения в игре \"{0}\" были сохранены", pesik.Name);
                 return RedirectToAction("Index");
             }
             else
@@ -44,6 +51,22 @@ namespace Pesiko.WebUI.Controllers
                 // Что-то не так со значениями данных
                 return View(pesik);
             }
+        }
+        public ViewResult Create()
+        {
+            return View("Edit", new Pesik());
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int pesikId)
+        {
+            Pesik deletedPesik = repository.DeletePesik(pesikId);
+            if (deletedPesik != null)
+            {
+                TempData["message"] = string.Format("Корм \"{0}\" был удален",
+                    deletedPesik.Name);
+            }
+            return RedirectToAction("Index");
         }
     }
 }

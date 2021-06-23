@@ -3,6 +3,8 @@ using Ninject;
 using Pesiko.Domain.Abstract;
 using Pesiko.Domain.Concrete;
 using Pesiko.Domain.Entities;
+using Pesiko.WebUI.Infrastructure.Abstract;
+using Pesiko.WebUI.Infrastructure.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -44,6 +46,8 @@ namespace Pesiko.WebUI.Infrastructure
 
             kernel.Bind<IOrderProcessor>().To<EmailOrderProcessor>()
                 .WithConstructorArgument("settings", emailSettings);
+
+            kernel.Bind<IAuthProvider>().To<FormAuthProvider>();
         }
     }
 }

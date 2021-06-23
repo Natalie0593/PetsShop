@@ -30,9 +30,22 @@ namespace Pesiko.Domain.Concrete
                     dbEntry.Description = pesik.Description;
                     dbEntry.Price = pesik.Price;
                     dbEntry.Category = pesik.Category;
+                    dbEntry.ImageData = pesik.ImageData;
+                    dbEntry.ImageMimeType = pesik.ImageMimeType;
                 }
             }
             context.SaveChanges();
+        }
+
+        public Pesik DeletePesik(int pesikId)
+        {
+            Pesik dbEntry = context.Pesiks.Find(pesikId);
+            if (dbEntry != null)
+            {
+                context.Pesiks.Remove(dbEntry);
+                context.SaveChanges();
+            }
+            return dbEntry;
         }
     }
 }

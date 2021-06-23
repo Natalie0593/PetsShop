@@ -1,4 +1,5 @@
 ﻿using Pesiko.Domain.Abstract;
+using Pesiko.Domain.Entities;
 using Pesiko.WebUI.Models;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,6 @@ namespace Pesiko.WebUI.Controllers
 {
     public class PesikoController : Controller
     {
-        // GET: Pesiko
         private IPesikoRepository repository;
         public int pageSize = 4;
         public PesikoController(IPesikoRepository repo)
@@ -38,6 +38,21 @@ namespace Pesiko.WebUI.Controllers
                 CurrentCategory = category
             };
             return View(model);
+        }
+
+        public FileContentResult GetImage(int pesikId)
+        {
+            Pesik pesik = repository.Pesiks
+                .FirstOrDefault(g => g.PesikId == pesikId);
+
+            if (pesik != null)
+            {
+                return File(pesik.ImageData, pesik.ImageMimeType);
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

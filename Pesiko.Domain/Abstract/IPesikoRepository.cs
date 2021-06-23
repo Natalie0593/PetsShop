@@ -11,5 +11,6 @@ namespace Pesiko.Domain.Abstract
     {
         IEnumerable<Pesik> Pesiks { get; }
         void SavePesik(Pesik pesik);
+        Pesik DeletePesik(int pesikId);
     }
 }
